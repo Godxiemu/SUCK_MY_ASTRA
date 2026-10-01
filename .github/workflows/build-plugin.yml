@@ -74,6 +74,9 @@ jobs:
         working-directory: build/linux/${{ matrix.arch }}
         run: |
           test -s codex-turn-state-cloud-mint.so
+          for symbol in cliproxy_plugin_init cliproxyPluginCall cliproxyPluginFree cliproxyPluginShutdown; do
+            nm -D --defined-only codex-turn-state-cloud-mint.so | awk '{print $3}' | grep -Fx "$symbol"
+          done
           sha256sum codex-turn-state-cloud-mint.so > SHA256SUMS
           sha256sum --check SHA256SUMS
 
