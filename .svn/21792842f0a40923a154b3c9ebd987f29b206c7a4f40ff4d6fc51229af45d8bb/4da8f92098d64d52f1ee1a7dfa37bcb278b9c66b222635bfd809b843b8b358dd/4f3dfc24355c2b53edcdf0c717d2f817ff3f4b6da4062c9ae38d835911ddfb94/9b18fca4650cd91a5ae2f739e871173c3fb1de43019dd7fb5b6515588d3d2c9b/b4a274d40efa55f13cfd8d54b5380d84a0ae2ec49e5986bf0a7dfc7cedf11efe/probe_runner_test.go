@@ -215,8 +215,8 @@ func (u *fakeUpstream) snapshot() []upstreamCall {
 }
 
 const (
-	probeTestAccount = "user@test.invalid"
-	probeTestOther   = "user@test.invalid"
+	probeTestAccount = "codex-11111111-user@test.invalid-pro.json"
+	probeTestOther   = "codex-22222222-other@test.invalid-pro.json"
 	probeTestModel   = "gpt-runner-1"
 )
 

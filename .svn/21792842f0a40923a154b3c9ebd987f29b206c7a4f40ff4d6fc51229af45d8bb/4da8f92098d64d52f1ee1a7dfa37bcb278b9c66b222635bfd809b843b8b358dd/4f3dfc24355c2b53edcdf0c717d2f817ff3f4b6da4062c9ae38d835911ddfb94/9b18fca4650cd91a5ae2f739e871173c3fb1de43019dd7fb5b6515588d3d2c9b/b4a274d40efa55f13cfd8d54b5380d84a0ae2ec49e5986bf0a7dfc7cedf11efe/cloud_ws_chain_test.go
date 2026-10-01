@@ -15,7 +15,7 @@ func TestCloudWSChainPreservesPreviousIDAndAggregatesCompleted(t *testing.T) {
 	cfg.CloudMint.Enabled = true
 	req := pluginapi.RequestInterceptRequest{RequestID: "chain-request", Model: "gpt-6-sol",
 		Body:     []byte(`{"model":"gpt-6-sol","previous_response_id":"resp_private_parent","input":"new turn only"}`),
-		Headers:  http.Header{turnStateHeader: {"private-ticket"}, "Cookie": {"__cflb=a; __oailb=unified-XX"}},
+		Headers:  http.Header{turnStateHeader: {"private-ticket"}, "Cookie": {"__cflb=a; __oailb=unified-88"}},
 		Metadata: map[string]any{selectedAuthMetadataKey: "private-account"}}
 	out := interceptCloudMint(req, cfg)
 	if out.Terminate || len(out.Body) != 0 || len(out.Headers) != 0 {

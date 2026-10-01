@@ -37,7 +37,7 @@ func TestCloudRequestLogReusedTicketAndBufferingAreSeparate(t *testing.T) {
 	cfg.CloudMint.Enabled = true
 	ticket := cloudTestTicket(time.Now())
 	req := pluginapi.RequestInterceptRequest{RequestID: "reuse", Model: "gpt-6-sol", Headers: http.Header{
-		"X-Codex-Turn-State": {ticket}, "Cookie": {"__cflb=route; __oailb=unified-XX; private_session=never-log"},
+		"X-Codex-Turn-State": {ticket}, "Cookie": {"__cflb=route; __oailb=unified-88; private_session=never-log"},
 	}}
 	result := interceptCloudMint(req, cfg)
 	if len(result.Headers) != 0 || result.Terminate {
@@ -52,7 +52,7 @@ func TestCloudRequestLogReusedTicketAndBufferingAreSeparate(t *testing.T) {
 	if len(logs) != 1 || logs[0].Kind != "沿用" {
 		t.Fatalf("expected one reused request: %+v", logs)
 	}
-	for _, text := range []string{"cookie unified-XX", "→ 未返回", "模型 gpt-6-sol → gpt-6-sol", "返回网关 未返回", "Set-Cookie 有 __cf_bm", "票长 未返回", "缓冲 gpt-6-luna", "premium"} {
+	for _, text := range []string{"cookie unified-88", "→ 未返回", "模型 gpt-6-sol → gpt-6-sol", "返回网关 未返回", "Set-Cookie 有 __cf_bm", "票长 未返回", "缓冲 gpt-6-luna", "premium"} {
 		if !strings.Contains(logs[0].Message, text) {
 			t.Errorf("missing %q: %s", text, logs[0].Message)
 		}
@@ -66,7 +66,7 @@ func TestCloudRequestLogReusedTicketAndBufferingAreSeparate(t *testing.T) {
 
 func TestCloudRequestLogAggregatesHeadersAndCreated(t *testing.T) {
 	resetCloudRequestLogTest(t)
-	cloudRememberInjection("aggregate", cloudMintEntry{Ticket: "secret-ticket", Model: "gpt-6-sol", Gateway: "unified-XX"})
+	cloudRememberInjection("aggregate", cloudMintEntry{Ticket: "secret-ticket", Model: "gpt-6-sol", Gateway: "unified-88"})
 	cloudLogResponse("aggregate", http.Header{}, "")
 	first := requestLogSnapshot()
 	event := []byte("data: {\"type\":\"response.created\",\"response\":{\"id\":\"r1\",\"model\":\"gpt-6-sol\"}}\n\n")

@@ -24,7 +24,7 @@ func TestMaskProxyURLNeverEchoesUserinfo(t *testing.T) {
 		want string
 	}{
 		{"userinfo is replaced wholesale", testProxyWithPW, "socks5h://***@exit.invalid:1080"},
-		{"user without password still masked", "http://user@test.invalid:8080", "http://***@exit.invalid:8080"},
+		{"user without password still masked", "http://user@exit.invalid:8080", "http://***@exit.invalid:8080"},
 		{"no userinfo passes through", "socks5://exit.invalid:1080", "socks5://exit.invalid:1080"},
 		{"empty stays empty", "", ""},
 

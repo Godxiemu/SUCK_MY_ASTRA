@@ -11,13 +11,13 @@ func TestCloudDisplayGatewayBoundaries(t *testing.T) {
 		name, value, want string
 	}{
 		{"any", "any", "any"},
-		{"concrete_gateway", "unified-XX", "unified-XX"},
+		{"concrete_gateway", "unified-88", "unified-88"},
 		{"empty", "", "网关未知"},
 		{"uppercase_any", "ANY", "网关未知"},
 		{"padded_any", " any ", "网关未知"},
 		{"missing_number", "unified-", "网关未知"},
-		{"trailing_text", "unified-XX-secret", "网关未知"},
-		{"newline", "unified-XX\nsecret", "网关未知"},
+		{"trailing_text", "unified-88-secret", "网关未知"},
+		{"newline", "unified-88\nsecret", "网关未知"},
 	}
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {

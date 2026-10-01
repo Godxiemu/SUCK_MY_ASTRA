@@ -75,14 +75,14 @@ func TestCloudMintSeedValidationAndCacheIsolation(t *testing.T) {
 		raw, gateway string
 		valid        bool
 	}{
-		{cookie, "unified-XX", true},
-		{cookie + "; session=keep", "unified-XX", true},
+		{cookie, "unified-88", true},
+		{cookie + "; session=keep", "unified-88", true},
 		{cookie, "any", true},
-		{cookie, "unified-XX", false},
-		{cookie + "; __cflb=duplicate", "unified-XX", false},
-		{"__cflb=only", "unified-XX", false},
-		{"__cflb=a; __oailb=unified-XX", "unified-XX", false},
-		{strings.Replace(cookie, "pair-test", "bad\x00value", 1), "unified-XX", false},
+		{cookie, "unified-99", false},
+		{cookie + "; __cflb=duplicate", "unified-88", false},
+		{"__cflb=only", "unified-88", false},
+		{"__cflb=a; __oailb=unified-88", "unified-88", false},
+		{strings.Replace(cookie, "pair-test", "bad\x00value", 1), "unified-88", false},
 	} {
 		got, err := cloudMintSeedCookie(tc.raw, tc.gateway, now)
 		if tc.valid && (err != nil || got != cookie) {
@@ -92,10 +92,10 @@ func TestCloudMintSeedValidationAndCacheIsolation(t *testing.T) {
 			t.Fatal("invalid pair accepted")
 		}
 	}
-	if got, err := cloudMintSeedCookie("__cf_bm=private; session=secret", "unified-XX", now); err != nil || got != "" {
+	if got, err := cloudMintSeedCookie("__cf_bm=private; session=secret", "unified-88", now); err != nil || got != "" {
 		t.Fatal("unrelated cookies became a seed")
 	}
-	if _, err := cloudMintSeedCookie(cookie, "unified-XX", now.Add(2*time.Hour)); err == nil {
+	if _, err := cloudMintSeedCookie(cookie, "unified-88", now.Add(2*time.Hour)); err == nil {
 		t.Fatal("expired seed accepted")
 	}
 	a := cloudMintWork{cfg: defaultCloudMintConfig(), model: "gpt-6-sol", seedCookie: cookie}

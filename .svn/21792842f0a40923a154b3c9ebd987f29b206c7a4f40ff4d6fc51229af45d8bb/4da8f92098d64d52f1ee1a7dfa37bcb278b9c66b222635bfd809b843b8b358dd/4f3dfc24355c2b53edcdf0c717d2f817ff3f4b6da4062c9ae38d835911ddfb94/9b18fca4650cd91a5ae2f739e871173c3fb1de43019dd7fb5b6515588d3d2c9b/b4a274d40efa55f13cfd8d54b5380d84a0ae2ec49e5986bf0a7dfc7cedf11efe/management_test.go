@@ -1494,12 +1494,12 @@ func (f *choicesCPA) authHeaders() []string {
 }
 
 const (
-	choicesAuthPro  = "user@test.invalid"
-	choicesAuthPlus = "user@test.invalid"
+	choicesAuthPro  = "codex-11111111-pro@test.invalid-pro.json"
+	choicesAuthPlus = "codex-22222222-plus@test.invalid-plus.json"
 
-	choicesAuthBak = "user@test.invalid"
+	choicesAuthBak = "codex-11111111-pro@test.invalid-pro.json.bak"
 
-	choicesAuthOther = "user@test.invalid"
+	choicesAuthOther = "gemini-other@test.invalid.json"
 )
 
 func choicesConfig(dir, baseURL, mgmtKey string, accounts, models []string) string {
@@ -1694,7 +1694,7 @@ func TestMaskAuthLabel(t *testing.T) {
 	}{
 		{
 			name: "the normal codex-<hex>-<email>-<tier>.json shape",
-			in:   "user@test.invalid",
+			in:   "codex-620f5a42-user@test.invalid-pro.json",
 			want: "620f5a42…pro",
 		},
 		{
@@ -1705,7 +1705,7 @@ func TestMaskAuthLabel(t *testing.T) {
 		{
 
 			name: "extra dashes around the email",
-			in:   "user@test.invalid",
+			in:   "codex-620f5a42--user@test.invalid--pro.json",
 			want: "620f5a42…pro",
 		},
 		{
@@ -1716,7 +1716,7 @@ func TestMaskAuthLabel(t *testing.T) {
 		{
 
 			name: "email in the final position",
-			in:   "user@test.invalid",
+			in:   "codex-620f5a42-user@test.invalid.json",
 			want: "620f5a42",
 		},
 		{
